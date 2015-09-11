@@ -1,3 +1,4 @@
+(setq-default indent-tabs-mode nil)
 (setq paradox-github-token "65c1835d27ce4f06c13bfcc55b48d5ca0fb3de06")
 
 (defun create-tags (dir-name)
@@ -109,6 +110,9 @@
     ("9d0dd2e2fd12c96c8ff1b2c83f7d4e09d8895a101245e4721e158991a0b21bae" "ac3c992b0cd6d546fde56267dd3c5c229c20f4b4db992eb4c362cd11064c071d" "7e30b3d5db2cc7cef026152c1147e6d8cea336dccb84feed6e099f2cd8ca3842" "37156ac96a860fbadf6d667eeeb28bc528ccb181478401946d1af29f7569d445" "93a24ac9ccc9f8e06d816f8a496d923988ba1edc7182530fd3f2600be4ce34af" "e3758e47662da33a6b3f06a0cce9ab829e729ffb407472d6ab01fdc1fa31e094" "24e6d5a14658e65573f245961b943d645f9e7f27592807ff0c22aff7731ba108" "f38230408ffa59bfa48b0b8678b3a0e257037cc9f32e5892dab992e7588f81ff" "9b808d789a1d17708aa1b0026503953afac8fb51bfb8eb38ac8a3258a892c07d" "6dd23f9b09e175bb6aafe0c3eacb2282311e380f75b3809d226fa0cb65854c3f" "05c3bc4eb1219953a4f182e10de1f7466d28987f48d647c01f1f0037ff35ab9a" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(fci-rule-color "#49483E")
  '(frame-background-mode (quote dark))
+ '(gnus-gcc-mark-as-read t)
+ '(gnus-group-tool-bar (quote gnus-group-tool-bar-gnome))
+ '(gnus-message-archive-group "nnimap+imap.broadcom.com:Sent Items")
  '(highlight-changes-colors ("#FD5FF0" "#AE81FF"))
  '(highlight-tail-colors
    (quote
@@ -230,4 +234,3 @@
   "A mode for writing enet testsuite definitions"  ;; doc string for this mode
   )
 
-(setq-default indent-tabs-mode nil)

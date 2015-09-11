@@ -3,15 +3,25 @@ import XMonad.Config.Desktop
 import XMonad.Hooks.DynamicLog (dzen)
 import XMonad.Util.Run
 import XMonad.Util.EZConfig
+import XMonad.Hooks.ManageDocks
 
 myFocusedBorderColor = "#585858"
 myNormalBorderColor  = "#1C1C1C"
-myXmonadBar = "dzen2 -x '1440' -y '0' -h '24' -w '640' -ta 'l' -fg '#FFFFFF' -bg '#1B1D1E'"
-myStatusBar = "conky -c /home/my_user/.xmonad/.conky_dzen | dzen2 -x '2080' -w '1040' -h '24' -ta 'r' -bg '#1B1D1E' -fg '#FFFFFF' -y '0'"
+
+myWorkspaces = ["1:org","2:build","3:src","4:ref","5:ff", "6:emacs", "7:emacs", "8:conf", "9:scratch"]
+
+myTerminal = "konsole"
+
+myLayoutHook = avoidStruts (tall ||| Mirror tall ||| Full)
+                    where  tall = Tall 1 (3/100) (1/2)
+
 main = do xmonad $ desktopConfig
                  { focusFollowsMouse  = True
                  , focusedBorderColor = myFocusedBorderColor
                  , normalBorderColor  = myNormalBorderColor
-                 , terminal           = "konsole"
+                 , terminal           = myTerminal
+		 , workspaces         = myWorkspaces
+		 , manageHook         = manageHook desktopConfig <+>  manageDocks
+		 , XMonad.layoutHook  = myLayoutHook
 		 }
 		 `removeKeys` [(mod1Mask, n) | n <- [xK_comma, xK_period]]
