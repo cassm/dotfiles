@@ -1,0 +1,16 @@
+[user]
+	name = Cass May
+	email = cassmay@broadcom.com
+[merge]
+	tool = meld
+[push]
+	default = simple
+[diff]
+	tool = meld
+[rerere]
+	enabled = false
+[init]
+	templatedir = ~/.git_template
+[alias]
+	ctags = !.git/hooks/ctags
+	meld = !/home/cassmay/src/git-meld/git-meld.pl

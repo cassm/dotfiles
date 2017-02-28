@@ -7,7 +7,7 @@ export LC_CTYPE=en_US.UTF8
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="af-magic"
+ZSH_THEME="custom-magic"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -51,7 +51,7 @@ HIST_STAMPS="dd/mm/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(dirhistory python colored-man git)
+plugins=(git)
 
 # User configuration
 
@@ -90,11 +90,19 @@ source $ZSH/oh-my-zsh.sh
 export HISTFILE=~/.histfile
 export HISTSIZE=100000
 export SAVEHIST=1000000
-export EDITOR="emacsclient -t"
+export EDITOR="vim"
 export ALTERNATE_EDITOR=""
 export EMACSVER=24.4
 export TERM=xterm-256color
 export TERMCAP=
+
+hex () {
+    python -c "print hex ($1)"
+}
+
+int () {
+    python -c "print int ($1)"
+}
 
 alias ..="cd .."
 alias e=emacs
@@ -105,16 +113,31 @@ alias ls="ls --color=auto"
 alias ll="ls -hal"
 alias g="git"
 
+alias gcn!="git commit --amend --no-edit"
+alias gcan!="git commit -a --amend --no-edit"
+alias gcm="git commit -m"
+alias gcam="git commit -am"
+alias gg="git grep"
+alias glgp='git log --pretty=format:"[%h] %ae, %ar: %s" --stat'
+
+bak() {
+    cp $1{,.bak}
+}
+
 setopt share_history autocd notify
 bindkey -e
+bindkey \^U backward-kill-line
+
+autoload -U zmv
+alias mmv='noglob zmv -W'
 
 # eval solarized dircolors
-eval `dircolors ~/.dir_colors`
+#eval `dircolors ~/.dir_colors`
 
 # colored completion - use my LS_COLORS
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+#zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
-source ~/.sh/tmuxinator.zsh
+#source ~/.sh/tmuxinator.zsh
 
 if [ -f ~/.sh/brcm.sh ]
 then
