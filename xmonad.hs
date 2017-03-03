@@ -9,8 +9,11 @@ import XMonad.Actions.PhysicalScreens
 import XMonad.Actions.FloatKeys
 import XMonad.Layout.Reflect
 import XMonad.Layout.MultiToggle
+import XMonad.Hooks.EwmhDesktops
+import XMonad.Layout.IndependentScreens
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
+import XMonad.Config.Gnome
 
 -- myFocusedBorderColor = "#585858"
 myFocusedBorderColor = "#5FD7FF"
@@ -20,29 +23,30 @@ myBorderWidth        = 2
 myWorkspaces :: [String]
 myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
 
-myTerminal = "konsole"
-
 myLayoutHook = mkToggle (single REFLECTX) $
 	       mkToggle (single REFLECTX) $
-               avoidStruts (Mirror tall ||| Mirror tallPrimary ||| Full)
+               avoidStruts (tall ||| tallPrimary ||| Full)
           where
 	      tall        = Tall 1 (3/100) (1/2)
 	      tallPrimary = Tall 1 (3/100) (75/100)
+
+myManageHook = composeAll
+    [ className =? "Gimp"           --> doFloat ]
 
 renameWS :: String -> X ()
 renameWS newTag = windows $ \s -> let old = W.tag $ W.workspace $ W.current s
                                   in W.renameTag old newTag s
 
 main = do
-        xmonad $ desktopConfig
+        xmonad $ gnomeConfig
            { focusedBorderColor = myFocusedBorderColor
            , normalBorderColor  = myNormalBorderColor
            , borderWidth        = myBorderWidth
-           , terminal           = myTerminal
+           , handleEventHook    = fullscreenEventHook <+> ewmhDesktopsEventHook
            , workspaces         = myWorkspaces
-           , manageHook         = manageDocks <+> manageHook desktopConfig
+           , manageHook         = myManageHook <+> manageDocks <+> manageHook desktopConfig
            , XMonad.layoutHook  = myLayoutHook
-           , logHook            = updatePointer (Relative 0.05 0.5)
+           , logHook            = updatePointer (0.05,0.5) (1,1) <+> ewmhDesktopsLogHook
            }
            `removeKeys`
            [(mod1Mask, n) | n <- [xK_comma, xK_period, xK_x, xK_X]]
