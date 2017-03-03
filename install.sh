@@ -1,5 +1,8 @@
 sudo apt-get install vim xmonad synapse
 
+git config --global user.name "Cass May"
+git config --global user.email "ingeniousmammal@gmail.com"
+
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 ln -s .vimrc ~/.vimrc
 vim +BundleInstall +qall
