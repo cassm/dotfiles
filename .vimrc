@@ -11,6 +11,7 @@ Plugin 'VundleVim/Vundle.vim'
 "Plugin 'vim-scripts/ctags.vim'
 "Plugin 'xolox/vim-easytags'
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'majutsushi/tagbar'
 Plugin 'vim-scripts/bufkill.vim'
 Plugin 'flazz/vim-colorschemes'
@@ -28,6 +29,8 @@ Plugin 'Tabbi'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'tweekmonster/braceless.vim'
+"Plugin 'goonzoid/vim-reprocessed'
+Plugin 'sophacles/vim-processing'
 
 call vundle#end()
 
@@ -50,7 +53,6 @@ set foldlevel=20
 set backspace=indent,eol,start
 set wildmenu
 set wildmode=longest,list:full
-set incsearch
 filetype plugin indent on
 syntax on
 filetype on
@@ -77,19 +79,12 @@ autocmd FileType python BracelessEnable +indent +fold
 "autocmd FileType make match ExtraWhitespace /\t\t\t\t\t/
 
 colorscheme lucius
+set bg=dark
+
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
-nnoremap <c-left> :tabprevious<cr>
-nnoremap <c-right> :tabnext<cr>
-nnoremap <silent> <a-left> :execute 'silent! tabmove ' . (tabpagenr()-2)<cr>
-nnoremap <silent> <a-right> :execute 'silent! tabmove ' . tabpagenr()<cr>
-inoremap <c-j> <cr>{<cr>}<up><cr>
-nnoremap <c-j> o{<cr>}<up><cr>
-nnoremap <cr> i<cr><esc>
-nnoremap <space> i<space><esc><right>
 
 nnoremap <C-Left> :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
@@ -130,5 +125,5 @@ set autochdir
 
 nnoremap Y y$
 
-command! Untrail %s/\s*$//
+command Untrail %s/\s*$//
 set virtualedit=block
