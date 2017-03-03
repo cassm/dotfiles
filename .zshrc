@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/cassmay/.oh-my-zsh
+export ZSH=/home/$(whoami)/.oh-my-zsh
 export LANG=en_US.UTF8
 export LC_CTYPE=en_US.UTF8
 
