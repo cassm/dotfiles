@@ -1,10 +1,26 @@
-sudo apt-get install zsh vim xmonad synapse
+sudo apt-get install zsh vim xmonad suckless-tools synapse
+
+mkdir ~/.xmonad
+ln ./xmonad.hs ~/.xmonad/
+xmonad --recompile
+xmonad --restart
+
+wget -O dropbox-dist "https://www.dropbox.com/download?plat=lnx.x86"
+tar -xvf dropbox-dist
+rm dropbox-dist
+mv .dropbox-dist ~
+~/.dropbox-dist/dropboxd&
+sudo cp dropboxd.service /etc/systemd/system
+sudo systemctl daemon-reload
+sudo systemctl enable dropboxd.service
+sudo systemctl start dropboxd.service
 
 git config --global user.name "Cass May"
 git config --global user.email "ingeniousmammal@gmail.com"
 
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-ln -s .vimrc ~/.vimrc
+rm ~/.vimrc
+ln .vimrc ~/.vimrc
 vim +BundleInstall +qall
 
 git submodule init
