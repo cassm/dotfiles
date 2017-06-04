@@ -1,4 +1,4 @@
-sudo apt-get install vim xmonad synapse
+sudo apt-get install zsh vim xmonad synapse
 
 git config --global user.name "Cass May"
 git config --global user.email "ingeniousmammal@gmail.com"
@@ -8,8 +8,9 @@ ln -s .vimrc ~/.vimrc
 vim +BundleInstall +qall
 
 git submodule init
+git submodule update
 
-fonts/.install.sh
+fonts/install.sh
 
 # assumes gnome terminal
 gsettings set org.gnome.desktop.interface monospace-font-name 'Inconsolata for Powerline Medium 14'
