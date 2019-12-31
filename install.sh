@@ -16,7 +16,7 @@ sudo systemctl enable dropboxd.service
 sudo systemctl start dropboxd.service
 
 git config --global user.name "Cass May"
-git config --global user.email "ingeniousmammal@gmail.com"
+git config --global user.email "cass@cassm.net"
 
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 rm ~/.vimrc
@@ -27,13 +27,6 @@ git submodule init
 git submodule update
 
 fonts/install.sh
-
-# assumes gnome terminal
-gsettings set org.gnome.desktop.interface monospace-font-name 'Inconsolata for Powerline Medium 14'
-
-sudo add-apt-repository ppa:gekkio/xmonad
-sudo apt-get update
-sudo apt-get install gnome-session-xmonad
 
 cp custom-magic.zsh-theme oh-my-zsh/themes/
 sed -i "s%mv -f ~/.zshrc-omztemp ~/.zshrc%rm ~/.zshrc\n  ln -s $PWD/.zshrc ~/.zshrc%" oh-my-zsh/tools/install.sh
