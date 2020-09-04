@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/$(whoami)/.oh-my-zsh
+export ZSH=/home/cassmay/.oh-my-zsh
 export LANG=en_US.UTF8
 export LC_CTYPE=en_US.UTF8
 
@@ -119,7 +119,9 @@ alias gcm="git commit -m"
 alias gcam="git commit -am"
 alias gg="git grep"
 alias glgp='git log --pretty=format:"[%h] %ae, %ar: %s" --stat'
+alias gs="git show"
 
+alias wx=wemux
 bak() {
     cp $1{,.bak}
 }

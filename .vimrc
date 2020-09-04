@@ -11,7 +11,6 @@ Plugin 'VundleVim/Vundle.vim'
 "Plugin 'vim-scripts/ctags.vim'
 "Plugin 'xolox/vim-easytags'
 Plugin 'bling/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'majutsushi/tagbar'
 Plugin 'vim-scripts/bufkill.vim'
 Plugin 'flazz/vim-colorschemes'
@@ -29,14 +28,14 @@ Plugin 'Tabbi'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'tweekmonster/braceless.vim'
-"Plugin 'goonzoid/vim-reprocessed'
-Plugin 'sophacles/vim-processing'
+Plugin 'camelcasemotion'
+Plugin 'jewes/Conque-Shell'
 
 call vundle#end()
 
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='fruit_punch'
+let g:airline_theme='bubblegum'
 let mapleader = ";"
 set splitbelow
 set splitright
@@ -53,6 +52,8 @@ set foldlevel=20
 set backspace=indent,eol,start
 set wildmenu
 set wildmode=longest,list:full
+set incsearch
+set background=dark
 filetype plugin indent on
 syntax on
 filetype on
@@ -79,51 +80,101 @@ autocmd FileType python BracelessEnable +indent +fold
 "autocmd FileType make match ExtraWhitespace /\t\t\t\t\t/
 
 colorscheme lucius
-set bg=dark
-
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-nnoremap <C-Left> :tabprevious<CR>
-nnoremap <C-Right> :tabnext<CR>
-nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
-nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
-inoremap <C-J> <CR>{<CR>}<Up><CR>
-nnoremap <C-J> o{<CR>}<Up><CR>
-nnoremap <CR> i<CR><Esc>
-nnoremap <Space> i<Space><Esc><Right>
+" allows incsearch highlighting for range commands
+cnoremap $t <cr>:t''<cr>
+cnoremap $t <cr>:t''<cr>
+cnoremap $m <cr>:m''<cr>
+cnoremap $m <cr>:m''<cr>
+cnoremap $d <cr>:d<cr>``
+
+nnoremap <S-h> :tabprevious<cr>
+nnoremap <S-l> :tabnext<cr>
+
+nnoremap <c-left> :tabprevious<cr>
+nnoremap <c-right> :tabnext<cr>
+nnoremap <silent> <a-left> :execute 'silent! tabmove ' . (tabpagenr()-2)<cr>
+nnoremap <silent> <a-right> :execute 'silent! tabmove ' . tabpagenr()<cr>
+inoremap <c-j> <cr>{<cr>}<up><cr>
+nnoremap <leader><space> o{<cr>}<up><cr>
+nnoremap <cr> i<cr><esc>
+nnoremap <space> i<space><esc><right>
 vmap "'y "*y
-map "'p :r!xclip -o <CR>
-map <A-]> :vsp<CR>:exec("tag ".expand("<cword>")) "
-nnoremap <T> :TagbarToggle<CR>
+map "'p :r!xclip -o <cr>
+map <a-]> :vsp<cr>:exec("tag ".expand("<cword>")) "
+nnoremap <t> :tagbartoggle<cr>
 
-" Git yore fingers off them arrows
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
-inoremap <Up> <NOP>
-inoremap <Down> <NOP>
-inoremap <Left> <NOP>
-inoremap <Right> <NOP>
+" git yore fingers off them arrows
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
 
-" Why even is ex mode?
-nnoremap Q <nop>
+" better hunk nav mapping
+nmap ) <plug>gitgutternexthunk
+nmap ( <plug>gitgutterprevhunk
 
-" Better hunk nav mapping
-nmap ) <Plug>GitGutterNextHunk
-nmap ( <Plug>GitGutterPrevHunk
+" specify next uppercase
+"onoremap M :<c-u>execute "normal! /[A-Z]\r:nohlsearch\r"<cr>
 
-" Vim annoyances
+" vim annoyances
 " stop cursor jumping when joining lines
-nnoremap J mzJ`zdmz
+"nnoremap J mzj`zdmz
+omap iw <Plug>CamelCaseMotion_iw
+xmap iw <Plug>CamelCaseMotion_iw
+omap ib <Plug>CamelCaseMotion_ib
+xmap ib <Plug>CamelCaseMotion_ib
+omap ie <Plug>CamelCaseMotion_ie
+xmap ie <Plug>CamelCaseMotion_ie
+
+let g:windowswap_map_keys = 0 "prevent default bindings
+nnoremap <silent> <leader>yw :call WindowSwap#MarkWindowSwap()<CR>
+nnoremap <silent> <leader>pw :call WindowSwap#DoWindowSwap()<CR>
+nnoremap <silent> <leader>ww :call WindowSwap#EasyWindowSwap()<CR>
 
 set scrolloff=15
 set autochdir
 
 nnoremap Y y$
 
-command Untrail %s/\s*$//
+command! Untrail %s/\s*$//
 set virtualedit=block
+
+function! StripUnderscores()
+  let l:winview = winsaveview()
+  let var = expand('<cword>')
+  let newArg = substitute(var, "_", "", "")
+  execute 'silent! %s/' . newArg . '_/' . newArg . '/g'
+  wincmd l
+  execute 'silent! %s/' . newArg . '_/' . newArg . '/g'
+  call winrestview(l:winview)
+  wincmd h
+endfunction
+
+function! SwapUnderscores()
+  let l:winview = winsaveview()
+  let var = expand('<cword>')
+  execute 'silent! %s/' . var . '_/' . var . '£/g'
+  execute 'silent! %s/' . var . '/' . var . '_/g'
+  execute 'silent! %s/' . var . '_£/' . var . '/g'
+  wincmd l
+  execute 'silent! %s/' . var . '_/' . var . '£/g'
+  execute 'silent! %s/' . var . '/' . var . '_/g'
+  execute 'silent! %s/' . var . '_£/' . var . '/g'
+  wincmd h
+  call winrestview(l:winview)
+endfunction
+
+nnoremap <silent> <F1> :call SwapUnderscores()<CR>
+nnoremap <silent> <F2> :call StripUnderscores()<CR>
+
+set clipboard+=unnamed,unnamedplus
+
