@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/cassmay/.oh-my-zsh
+export ZSH=/home/cassm/.oh-my-zsh
 export LANG=en_US.UTF8
 export LC_CTYPE=en_US.UTF8
 
@@ -7,7 +7,7 @@ export LC_CTYPE=en_US.UTF8
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="custom-magic"
+ZSH_THEME="af-magic"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -55,7 +55,6 @@ plugins=(git)
 
 # User configuration
 
-export PATH="/tools/oss/packages/x86_64-rhel6/tmux/default/bin:/tools/oss/packages/x86_64-rhel6/perl/default/bin:/tools/bin:/usr/local/bin:/bin:/usr/bin:/usr/sbin:/sbin:/usr/bin/X11:/projects/firepath/apps/bin/:/usr/local/sbin:/opt/dell/srvadmin/bin:/home/cassmay/local/bin:/projects/firepath/apps/bin/:/projects/firepath/tools/bin/:/home/ruperts/work/tools/sbcl/bin:/home/cassmay/.cabal/bin:/home/cassmay/.xmonad/"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -86,6 +85,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 #export PATH=$PATH:/projects/firepath/apps/bin/:/home/cassmay/bin/:/home/cassmay/bin/bin
+
+export PATH=$PATH:/usr/local/go/bin
 
 export HISTFILE=~/.histfile
 export HISTSIZE=100000
@@ -140,8 +141,3 @@ alias mmv='noglob zmv -W'
 #zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 #source ~/.sh/tmuxinator.zsh
-
-if [ -f ~/.sh/brcm.sh ]
-then
-    source ~/.sh/brcm.sh
-fi
