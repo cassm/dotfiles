@@ -23,7 +23,7 @@ ${FG[005]}%~\$(git_prompt_info)\$(hg_prompt_info) ${FG[002]}%(!.#.»)%{$reset_co
 PS2="%{$fg[001]%}\ %{$reset_color%}"
 
 # right prompt: return code, virtualenv and context (user@host)
-RPS1="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
+#RPS1="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 if (( $+functions[virtualenv_prompt_info] )); then
   RPS1+='$(virtualenv_prompt_info)'
 fi
