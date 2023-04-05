@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/cassm/.oh-my-zsh
+export ZSH=/Users/cassm/.oh-my-zsh
 export LANG=en_US.UTF8
 export LC_CTYPE=en_US.UTF8
 
@@ -8,6 +8,8 @@ export LC_CTYPE=en_US.UTF8
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="af-magic"
+DISABLE_MAGIC_FUNCTIONS=true
+COMPLETION_WAITING_DOTS=false
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -60,7 +62,8 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_GB.UTF-8
+export LC_ALL=en_GB.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -84,9 +87,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-#export PATH=$PATH:/projects/firepath/apps/bin/:/home/cassmay/bin/:/home/cassmay/bin/bin
+#export PATH=$PATH:/projects/firepath/apps/bin/:/Users/cassmay/bin/:/Users/cassmay/bin/bin
 
-export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/usr/local/go/bin:/Library/TeX/texbin/
 
 export HISTFILE=~/.histfile
 export HISTSIZE=100000
@@ -111,7 +114,7 @@ alias ec="emacsclient -t"
 alias ed="emacs --daemon"
 alias emacs="emacsclient -t"
 alias ls="ls --color=auto"
-alias ll="ls -hal"
+alias ll="ls -Ghal"
 alias g="git"
 
 alias gcn!="git commit --amend --no-edit"
@@ -122,11 +125,14 @@ alias gg="git grep"
 alias glgp='git log --pretty=format:"[%h] %ae, %ar: %s" --stat'
 alias gs="git show"
 
+alias bpy="stty stop undef && bpython"
+
 alias wx=wemux
 bak() {
     cp $1{,.bak}
 }
 
+unsetopt correctall
 setopt share_history autocd notify
 bindkey -e
 bindkey \^U backward-kill-line
@@ -141,3 +147,22 @@ alias mmv='noglob zmv -W'
 #zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 #source ~/.sh/tmuxinator.zsh
+alias hssh='grep -E "(^#|^Host)" ~/.ssh/config | sed -r -e s,"Host","ssh", -e s,"#",\\n#, | grep -E --color "^# .*|$"'
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"    # if `pyenv` is not already on PATH
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+EPRCFILE=~/.eprc.sh
+if test -f "$EPRCFILE"; then
+    echo ".eprc found"
+    source $EPRCFILE
+fi
+
+stty -ixon

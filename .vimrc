@@ -1,5 +1,5 @@
 set nocompatible              " be iMproved, required
-filetype off                  " required
+filetype plugin on                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -31,6 +31,13 @@ Plugin 'tweekmonster/braceless.vim'
 Plugin 'camelcasemotion'
 Plugin 'jewes/Conque-Shell'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vimwiki/vimwiki'
+Plugin 'tpope/vim-surround'
+Plugin 'repeat.vim'
+Plugin 'dkarter/bullets.vim'
+Plugin 'vim-pandoc/vim-pandoc'
+Plugin 'vim-pandoc/vim-pandoc-syntax'
+Plugin 'LarsEKrueger/pandoc-vimwiki'
 
 call vundle#end()
 
@@ -58,6 +65,7 @@ set background=dark
 filetype plugin indent on
 syntax on
 filetype on
+let g:vimwiki_folding = 'syntax'
 
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 autocmd ColorScheme * match ExtraWhitespace /\s\+$\|\t\+/
@@ -65,6 +73,14 @@ au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$\|\t\+/
 au InsertLeave * match ExtraWhitespace /\s\+$\|\t\+/
 
 autocmd FileType python BracelessEnable +indent +fold
+
+
+let g:bullets_enabled_file_types = [
+    \ 'markdown',
+    \ 'text',
+    \ 'gitcommit',
+    \ 'scratch'
+    \]
 
 "autocmd ColorScheme * highlight HighlightTabs ctermbg=red guibg=red
 "autocmd ColorScheme * match HighlightTabs /\t+/
@@ -102,7 +118,6 @@ nnoremap <silent> <a-left> :execute 'silent! tabmove ' . (tabpagenr()-2)<cr>
 nnoremap <silent> <a-right> :execute 'silent! tabmove ' . tabpagenr()<cr>
 inoremap <c-j> <cr>{<cr>}<up><cr>
 nnoremap <leader><space> o{<cr>}<up><cr>
-nnoremap <cr> i<cr><esc>
 nnoremap <space> i<space><esc><right>
 vmap "'y "*y
 map "'p :r!xclip -o <cr>
@@ -135,11 +150,6 @@ omap ib <Plug>CamelCaseMotion_ib
 xmap ib <Plug>CamelCaseMotion_ib
 omap ie <Plug>CamelCaseMotion_ie
 xmap ie <Plug>CamelCaseMotion_ie
-
-let g:windowswap_map_keys = 0 "prevent default bindings
-nnoremap <silent> <leader>yw :call WindowSwap#MarkWindowSwap()<CR>
-nnoremap <silent> <leader>pw :call WindowSwap#DoWindowSwap()<CR>
-nnoremap <silent> <leader>ww :call WindowSwap#EasyWindowSwap()<CR>
 
 set scrolloff=15
 set autochdir
@@ -177,5 +187,7 @@ endfunction
 nnoremap <silent> <F1> :call SwapUnderscores()<CR>
 nnoremap <silent> <F2> :call StripUnderscores()<CR>
 
-set clipboard+=unnamed,unnamedplus
+"set clipboard=unnamed,unnamedplus
 
+let g:pandoc#filetypes#handled = ["pandoc", "markdown"]
+let g:pandoc#filetypes#pandoc_markdown = 0
